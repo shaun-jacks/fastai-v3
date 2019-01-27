@@ -31,7 +31,7 @@ async def download_file(url, dest):
 
 async def setup_learner():
     await download_file(export_file_url, path/export_file_name)
-    state = torch.load(open(Path(path)/fname, map_location = 'cpu'))
+    state = torch.load(open(Path(path)/fname,'rb'), map_location = 'cpu')
     model = state.pop('model')
     src = LabelLists.load_state(path, state.pop('data'))
     if test is not None: src.add_test(test)
@@ -41,7 +41,7 @@ async def setup_learner():
     res = clas_func(data, model, **state)
     res.callback_fns = state['callback_fns'] #to avoid duplicates
     res.callbacks = [load_callback(c,s, res) for c,s in cb_state.items()]
-    learn = res
+    learn = load_learner(path, export_file_name)
     return learn
 
 loop = asyncio.get_event_loop()
