@@ -31,7 +31,7 @@ async def download_file(url, dest):
 
 async def setup_learner():
     await download_file(export_file_url, path/export_file_name)
-    state = torch.load(open(Path(path)/export_file_name,'rb'), map_location=lambda storage, loc: storage)
+    state = torch.load(open(Path(path)/export_file_name,'rb'), map_location=torch.device('cpu'))
     model = state.pop('model')
     src = LabelLists.load_state(path, state.pop('data'))
     if test is not None: src.add_test(test)
