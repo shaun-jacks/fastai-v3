@@ -10,7 +10,7 @@ from fastai import *
 from fastai.vision import *
 defaults.device = torch.device('cpu')
 
-export_file_url = 'https://drive.google.com/uc?export=download&id=14flEpb8R118z1HuMCuOvEZh2X0qSj9rn'
+export_file_url = 'https://drive.google.com/uc?export=download&id=1TcH5f9vcEk3xTeLLdARkpDQOL27R99kb'
 export_file_name = 'export.pkl'
 
 
@@ -41,7 +41,7 @@ async def setup_learner():
     res = clas_func(data, model, **state)
     res.callback_fns = state['callback_fns'] #to avoid duplicates
     res.callbacks = [load_callback(c,s, res) for c,s in cb_state.items()]
-    learn = load_learner(path, export_file_name)
+    learn = res
     return learn
 
 loop = asyncio.get_event_loop()
