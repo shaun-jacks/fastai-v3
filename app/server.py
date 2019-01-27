@@ -11,8 +11,9 @@ from fastai.vision import *
 export_file_url = 'https://drive.google.com/uc?export=download&id=1g315PSaD0JhrJ0tOmYJTlIev8x5VmVJ0'
 export_file_name = 'export.pkl'
 
+
 classes = ['fender_stratocaster', 'gibson_les_paul', 
-'ibanez_jem', 'nylon_string', 'prs_custom_24', 'taylor_214ce',]
+'ibanez_jem', 'nylon_string', 'prs_custom_24', 'taylor_214ce']
 path = Path(__file__).parent
 
 app = Starlette()
@@ -28,6 +29,7 @@ async def download_file(url, dest):
 
 async def setup_learner():
     await download_file(export_file_url, path/export_file_name)
+    defaults.device = torch.device('cpu')
     learn = load_learner(path, export_file_name)
     return learn
 
